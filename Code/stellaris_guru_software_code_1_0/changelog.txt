@@ -1,0 +1,37 @@
+** Centre for Electronic Design and Technology, NSIT, New Delhi
+** Dhananjay V Gadre, dhananjay.gadre@gmail.com
+** Shanjit Singh Jajmann, shanjitsingh@gmail.com
+** Rohit Dureja, rohit.dureja@gmail.com
+
+Last updated by : Shanjit Singh Jajmann, 28th July 2012
+
+--xx--
+
+This document includes all the changes commited to this folder with 
+respect to its previous versions.
+
+Project Name 	: Stellaris Guru
+Version No. 	: 1.0 (No earlier version released)
+Date 			: 25th June, 2012
+Status 			: Fully Stable, all code tested.
+
+--xx--
+
+Changes required in next version
+++ : to be included 
+-- : to be removed
++- : Documentation/Indentation needed
+
+++ 12uart_rgb_intensity, Calibration needed
+++ 16sense_light_led+=17sense_light_led, Code complete
+++ 18sleep_modes, Check Code
+++ 21mic_filters, Code incomplete
+++ 23mic_fft_plot, Code incomplete
++- Ensure standard Line Wrapping and Breaking
+
+--xx--
+
+Total Changes
+v1.0 : Final codes tried and tested at CDAC, Hyderabad. 25 June, 2012
+
+--xx--

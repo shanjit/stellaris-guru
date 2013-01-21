@@ -1,0 +1,21 @@
+1. Contains all the project codes of Stellaris Guru Project.
+
+2. Contributors : 
+	Dhananjay Gadre, dhananjay.gadre@gmail.com
+	Shanjit Singh Jajmann, shanjitsingh@gmail.com
+	Rohit Dureja, rohit.dureja@gmail.com
+
+3. The number preceding the folder names of different codes denotes 
+the experiment numbers given in the Manual.
+	
+4. All folder and filenames to be in small letters.
+
+5. Contact all authors before making changes to any Code or Changelog 
+file. Ensure standard line wrapping and breaking. Adhere to the 
+Changelog format. 
+
+6. While emailing, 
+	Make sure you include the [changelog updated] in the 
+subject with proper version number.
+	
+	Size issues : Ensure that all unnecessary binary files are deleted.

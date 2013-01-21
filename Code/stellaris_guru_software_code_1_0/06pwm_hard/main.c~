@@ -1,0 +1,218 @@
+ /* Centre for Electronic Design and Technology, NSIT, New Delhi
+ * 
+ * Dhananjay V Gadre, dhananjay.gadre@gmail.com
+ * Rohit Dureja, rohit.dureja@gmail.com
+ * Shanjit Singh Jajmann, shanjitsingh@gmail.com
+ */
+
+
+#include "inc/hw_memmap.h"
+#include "inc/hw_types.h"
+#include "inc/hw_timer.h"
+#include "inc/hw_ints.h"
+#include "inc/hw_gpio.h"
+#include "driverlib/timer.h"
+#include "driverlib/interrupt.h"
+#include "driverlib/sysctl.h"
+#include "driverlib/gpio.h"
+#include "utils/uartstdio.h"
+
+
+void UartInit(void)
+{
+    /* Enable GPIO port A which is used for UART0 pins. */
+    SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOA);
+	SysCtlPeripheralEnable(SYSCTL_PERIPH_UART0);
+
+    /* Make the UART pins be peripheral controlled. */
+	GPIOPinTypeUART(GPIO_PORTA_BASE, GPIO_PIN_0 | GPIO_PIN_1);
+
+    /* Initialize the UART for console I/O. */
+    UARTStdioInit(0);
+}
+
+void low_to_high(void)
+{
+	TimerMatchSet(TIMER0_BASE, TIMER_B, TimerLoadGet(TIMER0_BASE, TIMER_B)/10);
+
+	TimerEnable(TIMER0_BASE, TIMER_B);
+
+	SysCtlDelay(SysCtlClockGet()/50);
+
+	TimerDisable(TIMER0_BASE, TIMER_B);
+
+	TimerMatchSet(TIMER0_BASE, TIMER_B, TimerLoadGet(TIMER0_BASE, TIMER_B)/8);
+
+	TimerEnable(TIMER0_BASE, TIMER_B);
+
+	SysCtlDelay(SysCtlClockGet()/50);
+
+	TimerDisable(TIMER0_BASE, TIMER_B);
+
+	TimerMatchSet(TIMER0_BASE, TIMER_B, TimerLoadGet(TIMER0_BASE, TIMER_B)/6);
+
+	TimerEnable(TIMER0_BASE, TIMER_B);
+
+	SysCtlDelay(SysCtlClockGet()/50);
+
+	TimerDisable(TIMER0_BASE, TIMER_B);
+
+	TimerMatchSet(TIMER0_BASE, TIMER_B, TimerLoadGet(TIMER0_BASE, TIMER_B)/4);
+
+	TimerEnable(TIMER0_BASE, TIMER_B);
+
+	SysCtlDelay(SysCtlClockGet()/50);
+
+	TimerDisable(TIMER0_BASE, TIMER_B);
+	TimerMatchSet(TIMER0_BASE, TIMER_B, TimerLoadGet(TIMER0_BASE, TIMER_B)/2);
+
+	TimerEnable(TIMER0_BASE, TIMER_B);
+
+	SysCtlDelay(SysCtlClockGet()/50);
+
+	TimerDisable(TIMER0_BASE, TIMER_B);
+
+
+}
+
+void high_to_low(void)
+{
+
+		TimerMatchSet(TIMER0_BASE, TIMER_B, TimerLoadGet(TIMER0_BASE, TIMER_B)/2);
+
+		TimerEnable(TIMER0_BASE, TIMER_B);
+
+		SysCtlDelay(SysCtlClockGet()/50);
+
+		TimerDisable(TIMER0_BASE, TIMER_B);
+
+		TimerMatchSet(TIMER0_BASE, TIMER_B, TimerLoadGet(TIMER0_BASE, TIMER_B)/4);
+
+		TimerEnable(TIMER0_BASE, TIMER_B);
+
+		SysCtlDelay(SysCtlClockGet()/50);
+
+		TimerDisable(TIMER0_BASE, TIMER_B);
+
+		TimerMatchSet(TIMER0_BASE, TIMER_B, TimerLoadGet(TIMER0_BASE, TIMER_B)/6);
+
+		TimerEnable(TIMER0_BASE, TIMER_B);
+
+		SysCtlDelay(SysCtlClockGet()/50);
+
+		TimerDisable(TIMER0_BASE, TIMER_B);
+
+		TimerMatchSet(TIMER0_BASE, TIMER_B, TimerLoadGet(TIMER0_BASE, TIMER_B)/8);
+
+		TimerEnable(TIMER0_BASE, TIMER_B);
+
+		SysCtlDelay(SysCtlClockGet()/50);
+
+		TimerDisable(TIMER0_BASE, TIMER_B);
+
+		TimerMatchSet(TIMER0_BASE, TIMER_B, TimerLoadGet(TIMER0_BASE, TIMER_B)/10);
+
+		TimerEnable(TIMER0_BASE, TIMER_B);
+
+		SysCtlDelay(SysCtlClockGet()/50);
+
+		TimerDisable(TIMER0_BASE, TIMER_B);
+
+	}
+
+
+//*****************************************************************************
+//
+// Configure Timer1B as a 16-bit PWM with a duty cycle of 66%.
+//
+//*****************************************************************************
+int
+main(void)
+{
+    //
+    // Set the clocking to run directly from the external crystal/oscillator.
+    // TODO: The SYSCTL_XTAL_ value must be changed to match the value of the
+    // crystal on your board.
+    //
+    SysCtlClockSet(SYSCTL_SYSDIV_1 | SYSCTL_USE_OSC | SYSCTL_OSC_MAIN |
+                   SYSCTL_XTAL_8MHZ);
+
+    //
+    // The Timer1 peripheral must be enabled for use.
+    //
+    SysCtlPeripheralEnable(SYSCTL_PERIPH_TIMER0);
+	//
+    // For this example CCP3 is used with port E pin 4.
+    // The actual port and pins used may be different on your part, consult
+    // the data sheet for more information.
+    // GPIO port E needs to be enabled so these pins can be used.
+
+    //
+    SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOC);
+
+    //
+    // Configure the GPIO pin muxing for the Timer/CCP function.
+    // This is only necessary if your part supports GPIO pin function muxing.
+    // Study the data sheet to see which functions are allocated per pin.
+
+    //
+    //GPIOPinConfigure(GPIO_PC7_CCP4);
+    GPIOPinTypeTimer(GPIO_PORTC_BASE, GPIO_PIN_5);
+
+    //
+    // Set up the serial console to use for displaying messages.  This is
+    // just for this example program and is not needed for Timer/PWM operation.
+    //
+    UartInit();
+
+    //
+    // Configure the ccp settings for CCP pin.  This function also gives
+    // control of these pins to the SSI hardware.  Consult the data sheet to
+    // see which functions are allocated per pin.
+
+    //
+
+
+    //
+    // Display the example setup on the console.
+    //
+    /*UARTprintf("16-Bit Timer PWM ->");
+    UARTprintf("\n   Timer = Timer2A");
+    UARTprintf("\n   Mode = PWM");
+    UARTprintf("\n   Duty Cycle = 66%%\n");
+    UARTprintf("\nGenerating PWM on CCP4 (PC7) -> ");
+*/
+    //
+    // Configure Timer2A as a 16-bit periodic timer.
+    //by default its a down timer, up timers can also be configured.
+    TimerConfigure(TIMER0_BASE, TIMER_CFG_16_BIT_PAIR |
+                   TIMER_CFG_B_PWM);
+
+
+    // Set the Timer2A load value to 50000.  For this example a 66% duty
+    // cycle PWM signal will be generated.  From the load value (i.e. 50000)
+    // down to match value (set below) the signal will be high.  From the
+    // match value to 0 the timer will be low.
+    TimerLoadSet(TIMER0_BASE, TIMER_B, 50000);
+
+
+    // Set the Timer2A match value to load value / 3.
+    //TimerMatchSet(TIMER0_BASE, TIMER_B, TimerLoadGet(TIMER0_BASE, TIMER_B)/2);
+
+    //
+    // Enable Timer2A.
+    //
+    //TimerEnable(TIMER0_BASE, TIMER_B);
+
+    //
+    // Loop forever while the Timer2	A PWM runs.
+    //
+    while(1)
+    {
+
+    low_to_high();
+    high_to_low();
+
+    }
+
+}
